@@ -19,7 +19,7 @@ function generateFileWithInstance(file: models.File, schma: JSONSchema, lang: mo
         const instSchma: JSONSchema = schma as JSONSchema;
         let newInst: models.Instance = {};
         newInst.name = lang.process('instanceName', instSchma.title, instSchma);
-        newInst.access_Modifier = lang.process('instanceAccessModifier', 'public', instSchma);
+        newInst.access = lang.process('instanceAccessModifier', 'public', instSchma);
         newInst.keywords = [];
         newInst.keywords.push(lang.instance.keywords.keyword);
         newInst = generateInstanceWithProperties(newInst, instSchma, schma, lang);
@@ -38,7 +38,7 @@ function generateInstanceWithProperties(instance: models.Instance, instSchma: JS
         const propSchma = instSchma.properties[propKey] as JSONSchema;
         let newProp: models.Property = {};
         newProp.name = lang.process('propName', propKey, propSchma);
-        newProp.access_Modifier = lang.process('propertyAccessModifier', 'public', propSchma);
+        newProp.access = lang.process('propertyAccessModifier', 'public', propSchma);
         newProp.type = lang.process('propertyType', propSchma.type, propSchma);
         newProp.keywords = [];
         rtnInst.properties.push(newProp)

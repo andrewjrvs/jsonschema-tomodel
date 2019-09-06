@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import { languageType } from './models';
 import { JSONSchema } from 'json-schema-typed'
 import * as flUtil from './file';
+import { generate } from './generate';
 
 const languages: {[key: string]: languageType} = {
     "typescript" : {
@@ -18,6 +19,31 @@ const languages: {[key: string]: languageType} = {
         , process(value: string, obj: any, schema: JSONSchema): any {
             return obj;
         }
+        , fileTemplate: [
+            `{{imports}}`
+            , ``
+            , `{{instances}}`
+        ]
+        , instanceTemplate: [
+            `{{comments}}`
+            , `{{decorators}}`
+            , `export {{keywords}} {{name}} {{extends}} {`
+            , ` {{properties}}`
+            , ` {{init}}`
+            , ` {{methods}}`
+            , `}`
+        ]
+        , importTemplate: [
+            `import { {{name}} } from './{{path}}'`
+        ]
+        , methodTemplate: [
+            `{{access}} {{name}} (): {{type}} {`
+            , `   {{content}}`
+            , `}`
+        ]
+        , propertyTemplate: [
+            `{{access}} {{name}}: {{type}};`
+        ]
     }
 }
 
@@ -29,3 +55,4 @@ const JsonSchema = JSON.parse(JsonSchemaTxt) as JSONSchema;
 const fl = flUtil.generatefile(JsonSchema, languages.typescript);
 console.log(fl);
 console.log(fl.instances[0]);
+console.log(generate(fl, languages.typescript));

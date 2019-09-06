@@ -12,6 +12,11 @@ export interface languageType {
         access_modifiers: string | string []
     }
     process(value: string, obj: any, schema: JSONSchema): any
+    fileTemplate: string[]
+    instanceTemplate: string[]
+    propertyTemplate: string[]
+    methodTemplate: string[]
+    importTemplate: string[]
 }
 
 export interface File {
@@ -23,7 +28,7 @@ export interface File {
 }
 
 export interface Common {
-    access_Modifier?: string
+    access?: string
     keywords?: string[]
     name?: string
     decorators?: string[]
