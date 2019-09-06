@@ -1,0 +1,35 @@
+{
+  "id": "http://json-schema.org/thing",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Book",
+  "description": "A book",
+  "type": "object",
+  "extends": {
+    "$ref": "Common/Thing.json"
+  },
+  "properties": {
+    "genres": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxItems": 10
+      },
+      "primitive": true
+    },
+    "pageLength": {
+      "type": "integer",
+      "parseTo": "long",
+      "default": 25
+    },
+    "isbn": {
+      "type": "string"
+    },
+    "author": {
+      "$ref": "Common/Person.json"
+    },
+    "price": {
+      "type": "number",
+      "parseTo": "decimal"
+    }
+  }
+}
